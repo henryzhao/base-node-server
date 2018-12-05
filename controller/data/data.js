@@ -30,4 +30,4 @@ class dataInfo{
     }
 }
 
-module.exports = new dataInfo
+module.exports = new dataInfo 
