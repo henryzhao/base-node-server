@@ -10,7 +10,8 @@ const userSchema = new Schema({
     user_password: String,
     user_age: String,
     user_level: String,
-    create_time:String
+    create_time:String,
+    email: String
 })
 
 //建立索引  提高查询效率

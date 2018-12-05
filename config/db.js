@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbUrl = 'mongodb://localhost:27017/base-node-server'
+const dbUrl = 'mongodb://zhongshanpark.com.cn:27017/base-node-server'
 
 
 exports.connect = () => {
