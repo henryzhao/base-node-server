@@ -16,9 +16,10 @@
 #### 4.启动
 > npm start
 #### 5.自动化文档工具(每次使用需要手动更新接口)
-> apidoc -i routes/ -o public/apidoc/
+> apidoc -i routes/ -o public/apidoc/  
+(用法参考网址https://www.jianshu.com/p/7e1b057b047c/)
 #### 6.测试
-> locahost:3390/apidoc/index.html  就可以成功访问接口了
+> http://locahost:3390/apidoc/index.html  就可以成功访问接口了
 ### **项目详解**
 ##### 1. 项目入口
 **app.js**
