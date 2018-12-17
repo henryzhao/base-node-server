@@ -15,10 +15,12 @@ const dataWithCSchema = new Schema({
             sparse: true
         }
     }
+},{
+    collection: 'datawithc'
 })
 
-//建立索引  提高查询效率
-dataWithCSchema.index({data_id: 1})
+// //建立索引  提高查询效率
+// dataWithCSchema.index({data_id: 1})
 
 const datawithcModel = mongoose.model('datawithc', dataWithCSchema);
 

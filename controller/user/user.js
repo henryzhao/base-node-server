@@ -13,7 +13,7 @@ class user {
     async register(req, res, next) {
         let username = req.body.username;
         let userpassword = req.body.userpassword;
-        let email = req.body.email
+        let email = req.body.email;
         try {
             const userinfo = {
                 user_name: username,
@@ -21,7 +21,7 @@ class user {
                 email: email,
                 create_time: dtime().format('YYYY-MM-DD HH:mm')
             }
-            console.log(userinfo.create_time)
+            // console.log(userinfo.create_time)
             await UserModel.create(userinfo)
             res.json({
                 code: Constant.RESULT.SUCCESS.code,
@@ -54,17 +54,37 @@ class user {
                 user_name: username,
                 user_password: userpassword
             }
-            await UserModel.count(userinfo, function(err, user){
-                if(user==1){// 验证成功
-                    // var token = jwt.sign(user, 'app.get(superSecret)',{
-                    //     expiresIn: 60*60*24 //设置过期时间
-                    // })
+            await UserModel.findOne({user_name: username}, function(err, user){
+                if(err){
                     res.json({
-                        code: Constant.RESULT.SUCCESS.code,
-                        msg: Constant.RESULT.SUCCESS.msg,
-                        data: '登录成功',
-                        // token: token
+                        code: Constant.RESULT.FAILD.code,
+                        msg: Constant.RESULT.FAILD.msg,
+                        data: '登录失败'
                     })
+                } else if(!user){
+                    res.json({
+                        code: Constant.RESULT.FAILD.code,
+                        msg: Constant.RESULT.FAILD.msg,
+                        data: '用户名不存在'
+                    })
+                } else{
+                    if(userpassword != user.user_password){
+                        res.json({
+                            code: Constant.RESULT.FAILD.code,
+                            msg: Constant.RESULT.FAILD.msg,
+                            data: '密码错误'
+                        })
+                    } else {
+                        var token = jwt.sign(user, 'app.get(superSecret)', {
+                            'expiresInMinutes': 1440 // 设置过期时间
+                        });
+                        res.json({
+                            code: Constant.RESULT.SUCCESS.code,
+                            msg: Constant.RESULT.SUCCESS.msg,
+                            data: '登录成功',
+                            token: token
+                        })
+                    }
                 }
             })
         }catch(err){

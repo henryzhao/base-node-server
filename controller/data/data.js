@@ -3,14 +3,17 @@
  */
 const dataWithCModel = require('../../models/datawithc')
 const dataWithoutCModel = require('../../models/datawithoutc')
+const Constant = require('../../utils/constant')
 
 class dataInfo{
 
-    //存储数据
+    //存储经纬度数据
     async saveByOne(req, res, next){
+
         let newData = [{
             data_id: req.body.data_id,
             name: req.body.name,
+            type: req.body.type,
             location: req.body.location
         }]
         try{
@@ -18,13 +21,103 @@ class dataInfo{
             res.json({
                 code: Constant.RESULT.SUCCESS.code,
                 msg: Constant.RESULT.SUCCESS.msg,
-                data: '数据添加成功',
+                data: '数据添加成功'
             })
         } catch (err) {
             res.json({
                 code: Constant.RESULT.FAILD.code,
                 msg: Constant.RESULT.FAILD.msg,
+                data: '数据添加失败'+err
+            })
+        }
+    }
+
+    //存储无经纬度信息
+    async saveByOneWithoutC(req, res, next){
+        let personId = req.body.person_id
+        let firstName = req.body.first_name
+        let lastName = req.body.last_name
+        let race = req.body.race
+        let gender = req.body.gender
+        let address = req.body.address
+        let newData = [{
+            person_id: personId,
+            first_name: firstName,
+            last_name: lastName,
+            race: race,
+            gender: gender,
+            address: address
+        }]
+
+        try{
+            await dataWithoutCModel.create(newData)
+            res.json({
+                code: Constant.RESULT.SUCCESS.code,
+                msg: Constant.RESULT.SUCCESS.msg,
+                data: '数据添加成功',
+            })
+        }catch (err) {
+            res.json({
+                code: Constant.RESULT.FAILD.code,
+                msg: Constant.RESULT.FAILD.msg,
                 data: '数据添加失败',
+            })
+        }
+    }
+
+    //查询数据带经纬度
+    async listWithC(req, res, next){        
+        await dataWithCModel.find({},(err, result) => {
+            if(err) return console.log(err)
+            res.json({
+                code: Constant.RESULT.SUCCESS.code,
+                msg: Constant.RESULT.SUCCESS.msg,
+                data: result
+            })
+        })        
+    }
+
+    //根据数据Id查询数据带经纬度
+    async listWithCById(req, res, next){
+        let dataId = req.body.data_id
+        if(dataId != 0){
+            await dataWithCModel.find(
+                {
+                    data_id: dataId
+                },(err, result) => {
+                if(err) return console.log(err)
+                res.json({
+                    code: Constant.RESULT.SUCCESS.code,
+                    msg: Constant.RESULT.SUCCESS.msg,
+                    data: result
+                })
+            })
+        }
+    }
+    //查询数据不带带经纬度
+    async listWithoutC(req, res, next){
+        await dataWithoutCModel.find({},(err, result) =>{
+            if(err) return console.log(err)
+            res.json({
+                code: Constant.RESULT.SUCCESS.code,
+                msg: Constant.RESULT.SUCCESS.msg,
+                data: result
+            })
+        })
+    }
+    //根据数据id来查询不带经纬度数据
+    async listWithoutCById(req, res, next){
+        let personId = req.body.personId;
+        if(personId != 0){
+            await dataWithoutCModel.find({
+                person_id : personId
+            },(err, result) => {
+                if(err) return console.log(err)
+                res.json({
+                    code: Constant.RESULT.SUCCESS.code,
+                    msg: Constant.RESULT.SUCCESS.msg,
+                    data: result
+                })
             })
         }
     }

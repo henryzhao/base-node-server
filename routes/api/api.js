@@ -2,6 +2,7 @@
  * 主路由
  */
 const user = require('./user')
+const data = require('./data')
 // const order = require('./order')
 // const address = require('./address')
 const headers = require('./headers')
@@ -13,6 +14,7 @@ module.exports = app => {
     // app.use(headers.token)
     //功能模块子路由
     app.use('/api/user', user)
+    app.use('/api/data', data)
     // app.use('/api/order',order)
     // app.use('/api/address',address)
 }
