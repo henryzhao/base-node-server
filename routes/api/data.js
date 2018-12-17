@@ -5,6 +5,7 @@ const express = require('express');
 const Data = require('../../controller/data/data');
 const router = express.Router();
 
+
 router.post('/save',Data.saveByOne)
 router.post('/saveWithout', Data.saveByOneWithoutC)
 router.get('/listWithC', Data.listWithC)

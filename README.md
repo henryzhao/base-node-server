@@ -8,15 +8,17 @@
 > 项目使用Express框架和Mongodb数据库
 ### **项目使用**
 #### 1.clone项目
-> git clone https://github.com/LiangLuDev/base-node-server
+> git clone https://github.com/henryzhao/base-node-server
 #### 2.依赖模块安装
 > npm install
 #### 3.mongodb数据库安装，启动
 > 安装启动这类教程网上很多，自行查阅
 #### 4.启动
 > npm start
-#### 5.测试
-> locahost:3390  访问成功就完毕了。
+#### 5.自动化文档工具(每次使用需要手动更新接口)
+> apidoc -i routes/ -o public/apidoc/
+#### 6.测试
+> locahost:3390/apidoc/index.html  就可以成功访问接口了
 ### **项目详解**
 ##### 1. 项目入口
 **app.js**
@@ -138,7 +140,7 @@ module.exports = userinfo
 
 ```
 ### **意见反馈**
-如果遇到问题或者好的建议，请反馈到：issue、927195249@qq.com 或者LiangLuDev@gmail.com
+如果遇到问题或者好的建议，请反馈到：issue 或者zhaoyuqi54@gmail.com
 
 如果觉得对你有用的话，赞一下吧!
 
