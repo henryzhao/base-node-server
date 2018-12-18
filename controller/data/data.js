@@ -9,13 +9,19 @@ class dataInfo{
 
     //存储经纬度数据
     async saveByOne(req, res, next){
-
+        let dataId = req.body.data_id;
+        // console.log(dataId)
+        dataId = dataId.replace('"','')
+        // console.log(dataId)
+        let dataLocation = req.body.location.replace('"','')
+        // console.log(dataLocation)
         let newData = [{
-            data_id: req.body.data_id,
+            data_id: dataId,
             name: req.body.name,
             type: req.body.type,
-            location: req.body.location
+            location: dataLocation
         }]
+        console.log(newData)
         try{
             await dataWithCModel.create(newData)
             res.json({
